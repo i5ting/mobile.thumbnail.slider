@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+  <title>Mobile Thumbnail Slider - A Touch Slider for Webkit / Mobile Safari</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="mobile-thumbnail-slider.css" />
+  <script src="jquery.js"></script>
+</head>
+<body>
+  <div id="slider2" class="slider" style='top:200px;'>
+    <div class="track"></div>
+    <div class="knob" role="slider">
+      <center>2</center>
+    </div>
+  </div>
+
+  <input type="text" id="output2" disabled />
+  
+  <script type="text/javascript" src="mobile-thumbnail-slider.js"></script>
+  
+  <script type="text/javascript">
+  
+    var input1 = document.getElementById('output1');
+    var input2 = document.getElementById('output2');
+    
+    var slider2 = new MobileThumbnailSlider('slider2', {
+      min: 0,
+      max: 10,
+      change: function(value){
+        console.log('change...');
+        $('#slider2').find('.knob').html("<center>"+value+"</center>");
+        input2.value = value;
+      },
+      end:function(value){
+        console.log('end...');
+      },
+      start:function(value){
+        console.log('start...');
+        
+      },
+      photos : [
+        {url:'image/thumbnail-maikel.jpg'},
+        {url:'image/aaa.png'},
+        {url:'http://l.ruby-china.org/user/big_f08750e605d58ff54872d955169ce0c3.png'},
+        {url:'http://l.ruby-china.org/user/big_avatar/8.jpg'},
+        {url:'http://l.ruby-china.org/user/big_avatar/2.png'}
+      ]
+    });
+  </script>
+</body>
+</html>
