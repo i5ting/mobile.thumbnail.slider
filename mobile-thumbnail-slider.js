@@ -284,9 +284,6 @@ if (!Function.prototype.bind) {
     }
   };
 
-  //public function
-  window.MobileThumbnailSlider = MobileThumbnailSlider;
-  
   window.$c = function(className, node, tag) {
       node = node || document;
       tag = tag || '*';
@@ -325,5 +322,9 @@ if (!Function.prototype.bind) {
     // tip.show();
     $c('top_tooltip')[0].style.display = 'block';
   }
+  
+
+  //public function
+  window.MobileThumbnailSlider = MobileThumbnailSlider;
   
 })();
