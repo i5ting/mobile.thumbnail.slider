@@ -81,11 +81,25 @@ if (!Function.prototype.bind) {
     
     // update postion on page resize
     window.addEventListener("resize", this.update.bind(this));
+    
+    // for(var i = 0;i < this.photo)
+    this.cache_images();
+  }
+  
+  MobileThumbnailSlider.prototype.cache_images = function(){
+      var image_cache_html = "<div id='MobileThumbnailSliderCache' style='display:none;'>";
+      for (all in this.options.photos){
+          image_cache_html += ("<a href='#'><img src='"+this.options.photos[all].url+"'/></a>");
+      }
+      image_cache_html += "</div>"
+    
+      document.write(image_cache_html);
   }
   
   // default options
   MobileThumbnailSlider.prototype.defaultOptions = {
     photos:[],
+    errormessage:'no photo',
     _value_changed: false,
     value: 0, // initial value
     min: 0, // minimum value
@@ -225,7 +239,7 @@ if (!Function.prototype.bind) {
     tip_style.top = "44px";
     
     var data = $c('top_tooltip')[0].innerHTML 
-    var reCat = /photo/gi;
+    var reCat = /error/gi;
     if(reCat.test(data)){  
          console.log('没有图片时重置tip位置')
          tip_style.left = (position - 58/2)+"px";
@@ -311,7 +325,7 @@ if (!Function.prototype.bind) {
         tipInner.innerHTML = ("<a href='#'><img src='"+this.options.photos[i].url+"'/></a>");
     }catch(e)
     {
-        tipInner.innerHTML = ("<center><font color='blue'>no photo</font></center>");
+        tipInner.innerHTML = ("<center><font color='blue'><error>"+this.options.errormessage+"</error></font></center>");
         console.log(e);
     }
     

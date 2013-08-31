@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <input type="text" id="output2" disabled />
+  <input type="text" style='margin-top:200px;' id="output2" disabled />
   
   <script type="text/javascript" src="mobile-thumbnail-slider.js"></script>
   
@@ -27,6 +27,7 @@
     var slider2 = new MobileThumbnailSlider('slider2', {
       min: 0,
       max: 10,
+      errormessage:'fuck',
       change: function(value){
         console.log('change...');
         
