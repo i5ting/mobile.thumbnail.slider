@@ -327,4 +327,10 @@ if (!Function.prototype.bind) {
   //public function
   window.MobileThumbnailSlider = MobileThumbnailSlider;
   
+  // Expose it as an AMD module,copy form jQuery.js
+  if ( typeof define === "function" && define.amd && define.amd.MobileThumbnailSlider ) {
+  	define( "MobileThumbnailSlider", [], function () { return MobileThumbnailSlider; } );
+  }
+  
+  
 })();
