@@ -5,7 +5,7 @@
   <title>Mobile Thumbnail Slider - A Touch Slider for Webkit / Mobile Safari</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="stylesheet" href="mobile-thumbnail-slider.css" />
-  <script src="jquery.js"></script>
+
 </head>
 <body>
   <div id="slider2" class="slider" style='top:200px;'>
@@ -29,7 +29,7 @@
       max: 10,
       change: function(value){
         console.log('change...');
-        $('#slider2').find('.knob').html("<center>"+value+"</center>");
+        
         input2.value = value;
       },
       end:function(value){

@@ -219,12 +219,23 @@ if (!Function.prototype.bind) {
         this._value_changed = false;    
     }
     
-    $('.top_tooltip').css({'left':(position - 140/2)+"px"})
-
+    // TODO: 
+    var tip_style = $c('top_tooltip')[0].style;
+    tip_style.left = (position - 140/2)+"px";
+    tip_style.top = "44px";
+    
+    var data = $c('top_tooltip')[0].innerHTML 
+    var reCat = /photo/gi;
+    if(reCat.test(data)){  
+         console.log('没有图片时重置tip位置')
+         tip_style.left = (position - 58/2)+"px";
+         tip_style.top = "164px";
+    }
   };
 
   // call callback with new value
   MobileThumbnailSlider.prototype.callback = function(value) { 
+    $c('knob')[0].innerHTML = ("<center>"+value+"</center>");
     if (this.options.change){
       this.show_img_with_number(value);
       this.options.change(value);
@@ -247,6 +258,24 @@ if (!Function.prototype.bind) {
   //public function
   window.MobileThumbnailSlider = MobileThumbnailSlider;
   
+  window.$c = function(className, node, tag) {
+      node = node || document;
+      tag = tag || '*';
+      var i = 0,
+          j = 0,
+          classElements = [],
+          els = node.getElementsByTagName(tag),
+          elsLen = els.length,
+          pattern = new RegExp("(^|\\s)" + className + "(\\s|$)");
+        
+      for (; i < elsLen; i ++) {
+          if (pattern.test(els[i].className)) {
+              classElements[j] = els[i];
+              j ++;
+          };
+      };
+      return classElements;
+  };
   
   //jq init
   var getTooltip = function () {
@@ -258,40 +287,36 @@ if (!Function.prototype.bind) {
       "</div>";
       return TooltipHtml;
   };
-  $("body").prepend(getTooltip()); // add tootlip into the body
+  //$("body").prepend(getTooltip()); // add tootlip into the body
+  document.write(getTooltip());
   
-  $('.knob').click(function(){
-      $('.top_tooltip').hide();
-  });
-  
+  // $('.knob').click(function(){
+ //      $('.top_tooltip').hide();
+ //  });
+ //  
   MobileThumbnailSlider.prototype.show_img_with_number = function(i){
     // var $this = $(this);
     // var tText = $this.attr("title");
     // $this.data('tipText', tText).removeAttr('title');
     console.log("this numberu=" + i);
-
-    var tip = $('.top_tooltip');
-    var tipInner = $('.top_tooltip .conten_tooltip'); // add title content into the tooltip
+    // 
+    // var tip = $c('top_tooltip')[0];
+    // 
+    // tip = $('.top_tooltip');
+    
+    // var tip = $c('top_tooltip');
+    // var tipInner = $('.top_tooltip .conten_tooltip'); // add title content into the tooltip
+    var tipInner = $c('conten_tooltip')[0]; // add title content into the tooltip
     try{
-        tipInner.html("<a href='#'><img src='"+this.options.photos[i].url+"'/></a>");
+        tipInner.innerHTML = ("<a href='#'><img src='"+this.options.photos[i].url+"'/></a>");
     }catch(e)
     {
-        tipInner.html("<center><font color='blue'>no photo</font></center>");
+        tipInner.innerHTML = ("<center><font color='blue'>no photo</font></center>");
         console.log(e);
     }
-
-    if (i>=0) {   
-           
-        var offset = $('#slider2 .knob').offset();
-        
-        console.log("offset=" + offset);
-        var y = offset.top - tip.outerHeight() - 14;
-        var x = offset.left + $('#slider2 .knob').outerWidth() / 2 - tip.outerWidth() / 2;
-        tip.css({ 'top': y, 'left': x });
-        // tip.slideUp('slow').show();
-    }
     
-    tip.show();
+    // tip.show();
+    $c('top_tooltip')[0].style.display = 'block';
   }
   
 })();
