@@ -2,6 +2,7 @@
 
 thumbnail slider for mobile device.
 
+![Alt text](screenshot1.png)
 
 ## features
 
