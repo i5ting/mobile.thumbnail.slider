@@ -37,7 +37,9 @@ if (!Function.prototype.bind) {
 
   // constructor
   function MobileThumbnailSlider(element, options) {
-
+    /* init html here */
+    this.init_html();  
+      
     this.element = element;
     
     this.options = {};
@@ -82,10 +84,27 @@ if (!Function.prototype.bind) {
     // update postion on page resize
     window.addEventListener("resize", this.update.bind(this));
     
-    // for(var i = 0;i < this.photo)
+
+    /* cache images here */  
     this.cache_images();
   }
   
+  /* init html here */
+  MobileThumbnailSlider.prototype.init_html = function(){
+      var getTooltip = function () {
+          var TooltipHtml =
+          "<div class='top_tooltip'>" +
+              "<div class='conten_tooltip'>" +
+              "</div>" +
+              "<div class='bottom_tooltip'></div>" +
+          "</div>";
+          return TooltipHtml;
+      };
+  
+      document.write(getTooltip());
+  }
+
+  /* cache images here */  
   MobileThumbnailSlider.prototype.cache_images = function(){
       var image_cache_html = "<div id='MobileThumbnailSliderCache' style='display:none;'>";
       for (all in this.options.photos){
@@ -211,7 +230,6 @@ if (!Function.prototype.bind) {
       position -= element.offsetLeft;
     }
 
-    console.log("position := "+position)
     // keep knob in the bounds
     position += knobWidth / 2;
     position = Math.min(position, trackWidth);
@@ -221,10 +239,7 @@ if (!Function.prototype.bind) {
   
     // update
     value = this.options.min + Math.round(position * range / width);
-    console.log(this.value)
-    
-    console.log(Math.abs(event.x - position));
-    
+
     if( (this.value - value) != 0)
     {
         this.setValue(value);    
@@ -290,36 +305,14 @@ if (!Function.prototype.bind) {
       };
       return classElements;
   };
-  
-  //jq init
-  var getTooltip = function () {
-      var TooltipHtml =
-      "<div class='top_tooltip'>" +
-          "<div class='conten_tooltip'>" +
-          "</div>" +
-          "<div class='bottom_tooltip'></div>" +
-      "</div>";
-      return TooltipHtml;
-  };
-  //$("body").prepend(getTooltip()); // add tootlip into the body
-  document.write(getTooltip());
-  
+ 
   // $('.knob').click(function(){
  //      $('.top_tooltip').hide();
  //  });
  //  
   MobileThumbnailSlider.prototype.show_img_with_number = function(i){
-    // var $this = $(this);
-    // var tText = $this.attr("title");
-    // $this.data('tipText', tText).removeAttr('title');
     console.log("this numberu=" + i);
-    // 
-    // var tip = $c('top_tooltip')[0];
-    // 
-    // tip = $('.top_tooltip');
-    
-    // var tip = $c('top_tooltip');
-    // var tipInner = $('.top_tooltip .conten_tooltip'); // add title content into the tooltip
+
     var tipInner = $c('conten_tooltip')[0]; // add title content into the tooltip
     try{
         tipInner.innerHTML = ("<a href='#'><img src='"+this.options.photos[i].url+"'/></a>");
